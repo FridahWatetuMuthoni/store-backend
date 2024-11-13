@@ -7,7 +7,7 @@ const product_router = Router();
 product_router.get("/api/products", async (request, response) => {
   try {
     const products = await Product.find({});
-    return response.status(200).send(products);
+    return response.status(200).json({ success: true, data: products });
   } catch (err) {
     console.error(`Error:${err.message}`);
     return response
@@ -32,7 +32,7 @@ product_router.post("/api/products", async (request, response) => {
 
   try {
     const saved_product = await new_product.save();
-    return response.status(201).send(saved_product);
+    return response.status(201).json({ success: true, data: saved_product });
   } catch (err) {
     console.error(`Error while creating product: ${err.message}`);
     return response
@@ -77,7 +77,7 @@ product_router.put("/api/products/:id", async (request, response) => {
 
   try {
     const product = await Product.findByIdAndUpdate(id, body, { new: true });
-    return response.status(200).json(product);
+    return response.status(200).json({ success: true, data: product });
   } catch (err) {
     console.error(`Error: ${err.message}`);
     return response
