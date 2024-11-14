@@ -11,6 +11,10 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(router);
 
+app.get("/ping", (req, res) => {
+  res.send("Server is active");
+});
+
 app.listen(PORT, () => {
   connectDB();
   console.log(`Server running on: http://localhost:${PORT}`);
