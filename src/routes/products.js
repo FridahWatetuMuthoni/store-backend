@@ -53,8 +53,8 @@ product_router.delete("/api/products/:id", async (request, response) => {
   try {
     await Product.findByIdAndDelete(id);
     return response
-      .send(200)
-      .json({ sucess: true, message: "product deleted" });
+      .status(200)
+      .json({ success: true, message: "product deleted" });
   } catch (err) {
     console.error(`Error:${err.message}`);
     return response
@@ -77,7 +77,13 @@ product_router.put("/api/products/:id", async (request, response) => {
 
   try {
     const product = await Product.findByIdAndUpdate(id, body, { new: true });
-    return response.status(200).json({ success: true, data: product });
+    return response
+      .status(200)
+      .json({
+        success: true,
+        data: product,
+        message: "Product updated successfully",
+      });
   } catch (err) {
     console.error(`Error: ${err.message}`);
     return response
